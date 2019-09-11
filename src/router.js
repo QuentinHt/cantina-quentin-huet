@@ -1,14 +1,18 @@
 import VueRouter from 'vue-router'
 import List from './components/List.vue'
 import Form from './components/Form.vue'
+import Recipe from './components/Recipe.vue'
 
 export default new VueRouter({
     routes : [
         {
-            path: '/List', component: List
+            path: '/', component: List
         },
         {
-            path: '/', component: Form
+            path: '/form', component: Form
+        },
+        {
+            path: '/recipe', component: Recipe
         }
     ]
 })

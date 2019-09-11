@@ -16,7 +16,7 @@ export default {
             .catch(errorHandler)
     },
     fetchOne: function (id) {
-        return axios.get(`${API_ENDPOINT}/recipes/${id}`)
+        return axios.get(`${API_ENDPOINT}/recipe/${id}`)
             .then(res => res.data)
             .catch(errorHandler)
     },

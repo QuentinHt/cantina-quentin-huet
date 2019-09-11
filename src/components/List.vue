@@ -3,7 +3,6 @@
 
             <h1>Liste des recettes</h1>
             <hr>
-            
             <div class="userlist" v-if="recipesList">
                 <Recipecard v-for="recipe in recipesList" :recipe="recipe" :key="recipe.id"/>
             </div>
@@ -27,7 +26,7 @@ export default {
             searchText: '',
             filterValue: 'name'
         }
-    }, 
+    },                             
     created: function(){
         UserService
         .fetchAll()
