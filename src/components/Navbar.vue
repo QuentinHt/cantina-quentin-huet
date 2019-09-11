@@ -2,10 +2,10 @@
     <nav class="navbar">
             <div class="container">
                 <img src="../assets/lightsaber.png" alt="">
-                <ul>
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="#">Ajouter une recette</a></li>
-                </ul>
+                <div>
+                <router-link to="/">Accueil</router-link>
+                <router-link to="/list">Liste des recettes</router-link>
+                </div>
             </div>
         </nav>
 </template>
@@ -24,17 +24,17 @@
     align-items: center;
     padding: 0 2.5%
 }
-.navbar>.container ul {
+.navbar>.container > div {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-end;
     align-items: center;
 }
-.navbar .container ul li {
+.navbar .container div > router-link {
     list-style-type: none 
 }
 .navbar a:link,
-.navbar a:visited {
+.navbar a:visited{
     color: white;
     text-decoration: none;
     display: inline-block;
@@ -49,13 +49,13 @@
 }
 
 .navbar a.router-link-exact-active {
-    background-color: #128953;
+    background-color: rgb(50,50,50);
 }
 
 .navbar a:active {
     transition: none;
-    color: #128953;
-    background-color: #82f9c3
+    color: white;
+    background-color: rgb(50,50,50)
 }
 
 .navbar a:last-of-type {
