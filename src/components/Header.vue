@@ -26,7 +26,7 @@ header h1 {
 header img {
     height: 80px;
 }
-header a { 
+header a { 
     margin-top: auto;
     padding-bottom: 40px;
 }

@@ -2,18 +2,21 @@
   <div id="app">
     <Navbar/>
     <Header/>
+    <List/>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue';
-import Header from './components/Header.vue'
+import Header from './components/Header.vue';
+import List from './components/List.vue'
 
 export default {
   name: 'app',
   components: {
     Navbar,
-    Header
+    Header,
+    List
   }
 }
 </script>
