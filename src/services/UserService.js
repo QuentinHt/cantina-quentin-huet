@@ -20,8 +20,8 @@ export default {
             .then(res => res.data)
             .catch(errorHandler)
     },
-    addRecipe: function (userObj) {
-        return axios.post(`${API_ENDPOINT}/recipe`, userObj)
+    addRecipe: function (recipeObj) {
+        return axios.post(`${API_ENDPOINT}/recipes`, recipeObj)
             .then(res => res.data)
             .catch(errorHandler)
     },

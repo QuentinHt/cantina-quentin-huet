@@ -3,7 +3,7 @@
 
             <h1>Ajouter une recette</h1>
             <hr>
-            <Form @send='addUser'/>
+            <Form @send='addRecipe'/>
         </div>
 </template>
 <script>
@@ -15,10 +15,8 @@ export default {
         Form
     },
     methods: {
-        addUser: function(recipe){
-
- 
-            UserService.addUser(recipe).then(res => {
+        addRecipe: function(recipe){
+            UserService.addRecipe(recipe).then(res => {
                     this.$router.replace('/list')
             }).catch(({message}) => alert(message))
         }

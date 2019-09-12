@@ -33,7 +33,7 @@
         <div class="form-group">
             <label for="ingredients">Ingrédients : </label>
             <div id="form-ingredients">
-                <formIngredient v-for="(ingredient, index) in ingredients" :key="ingredient.id" v-on:emitIndex="findIndexIngredient(index)" v-on:emitIngredient="changeData"/>
+                <formIngredient v-for="(ingredient, index) in ingredientsBase" :key="ingredient.id" v-on:emitIndex="findIndexIngredient(index)" v-on:emitIngredient="changeData"/>
             </div>
             <input type="button" value="Ajouter un ingrédient" @click.prevent="addIngredient">
         </div>
@@ -41,7 +41,7 @@
         <div class="form-group">
             <label for="etape">Liste des étapes</label>
             <div class="form-etapes">
-            <textarea name="etape" id="etape" cols="30" rows="10" v-for="(etape, index) in etapes" :key="etape.id" v-model="newEtapes[index]"></textarea>
+            <textarea name="etape" id="etape" cols="30" rows="10" v-for="(etape, index) in etapesBase" :key="etape.id" v-model="recipe.etapes[index]"></textarea>
             </div>
             <input type="button" value="Ajouter une étape" @click.prevent="addEtape">
         </div>
@@ -50,8 +50,7 @@
             <input type="url" id="photo" v-model="recipe.photo">
         </div>
 
-        <p>ingr {{newIngredient}}</p>
-        <p>etap {{newEtapes}}</p>
+        <input type="submit" value="Envoyer">
     </form>
 </template>
 
@@ -61,12 +60,11 @@ export default {
     data: function() {
         return {
             nbIngredient : [0,0,0],
-            etapes: ["",""],
+            etapesBase: ["",""],
             newEtapes: [""],
-            ingredients:[["",""],["",""]],
+            ingredientsBase:[["",""],["",""]],
             newIngredient: [""],
             indexIngredient: null,
-            test: []
         }
     },
     props: {
@@ -80,8 +78,8 @@ export default {
           niveau: "",
           personnes: "",
           tempsPreparation: "",
-          etapes: this.etapes,
-          ingredients: [],
+          etapes: [""],
+          ingredients: [""],
           photo: ""
         };
       }
@@ -92,12 +90,13 @@ export default {
     },
     methods: {
         addIngredient: function(){
-            this.ingredients.push(["",""]);
+            this.ingredientsBase.push(["",""]);
         },
         addEtape: function(){
-            this.etapes.push("")
+            this.etapesBase.push("")
         },
         onSubmit: function() {
+            console.log(this.recipe)
         this.$emit('send', this.recipe)
         },
         findIndexIngredient: function(value){
@@ -105,7 +104,7 @@ export default {
         },
         changeData: function(value){
             console.log(this.indexIngredient)
-            this.newIngredient[this.indexIngredient] = value;
+            this.recipe.ingredients[this.indexIngredient] = value;
         }
     }
 }
