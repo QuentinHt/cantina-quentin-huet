@@ -5,6 +5,7 @@
                 <div>
                 <router-link to="/">Accueil</router-link>
                 <router-link to="/list">Liste des recettes</router-link>
+                <router-link to="/addRecipe">Ajouter une recette</router-link>
                 </div>
             </div>
         </nav>

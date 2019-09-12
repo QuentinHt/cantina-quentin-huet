@@ -26,15 +26,15 @@ export default {
     data: function() {
         return {
             recipe: null,
-            id: 1
+            id: 3
         }
     },                             
     created: function(){
         UserService
-        .fetchOne(this.id)
+        .fetchOne(this.$route.params.id)
         .then(recipe => {
             this.recipe = recipe;
-            console.log(recipe)
+            console.log(this.recipe)
         })
     }
 }
