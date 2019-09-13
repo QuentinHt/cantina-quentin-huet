@@ -3,6 +3,7 @@ import List from './components/List.vue'
 import Form from './components/Form.vue'
 import Recipe from './components/Recipe.vue'
 import Add from './components/Add.vue'
+import Edit from './components/Edit.vue'
 
 export default new VueRouter({
     routes : [
@@ -17,6 +18,9 @@ export default new VueRouter({
         },
         {
             path: '/addRecipe', component: Add
+        },
+        {
+            path: '/edit/:id', component: Edit
         }
     ]
 })

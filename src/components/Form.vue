@@ -33,7 +33,7 @@
         <div class="form-group">
             <label for="ingredients">Ingrédients : </label>
             <div id="form-ingredients">
-                <formIngredient v-for="(ingredient, index) in ingredientsBase" :key="ingredient.id" v-on:emitIndex="findIndexIngredient(index)" v-on:emitIngredient="changeData"/>
+                <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" v-on:emitIndex="findIndexIngredient(index)" v-on:emitIngredient="changeData"/>
             </div>
             <input type="button" value="Ajouter un ingrédient" @click.prevent="addIngredient">
         </div>
@@ -41,7 +41,7 @@
         <div class="form-group">
             <label for="etape">Liste des étapes</label>
             <div class="form-etapes">
-            <textarea name="etape" id="etape" cols="30" rows="10" v-for="(etape, index) in etapesBase" :key="etape.id" v-model="recipe.etapes[index]"></textarea>
+            <textarea name="etape" id="etape" cols="30" rows="10" v-for="(etape, index) in recipe.etapes" :key="etape.id" v-model="recipe.etapes[index]"></textarea>
             </div>
             <input type="button" value="Ajouter une étape" @click.prevent="addEtape">
         </div>
@@ -96,14 +96,12 @@ export default {
             this.etapesBase.push("")
         },
         onSubmit: function() {
-            console.log(this.recipe)
         this.$emit('send', this.recipe)
         },
         findIndexIngredient: function(value){
             this.indexIngredient = value
         },
         changeData: function(value){
-            console.log(this.indexIngredient)
             this.recipe.ingredients[this.indexIngredient] = value;
         }
     }
