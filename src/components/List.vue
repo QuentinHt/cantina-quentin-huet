@@ -4,7 +4,7 @@
             <h1>Liste des recettes</h1>
             <hr>
             <div class="userlist" v-if="recipesList">
-                <Recipecard v-for="recipe in recipesList" :recipe="recipe" :key="recipe.id"/>
+                <Recipecard v-for="recipe in recipesList" :recipe="recipe" :key="recipe.id" @delete='deleteRecipe'/>
             </div>
 
         </div>
@@ -20,6 +20,17 @@ export default {
     components : {
         Recipecard
     },
+  methods: {
+      deleteRecipe: function(recipeToDelete){
+            UserService.deleteRecipe(recipeToDelete).then(res => {
+                    let index = this.recipesList.indexOf(recipeToDelete);
+                    if (index > -1){
+                        this.recipesList.splice(index, 1);
+                    }
+})
+.catch(errorMessage => alert(errorMessage))
+        }
+  },
     data: function() {
         return {
             recipesList: null,

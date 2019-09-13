@@ -8,8 +8,8 @@
         <p>Difficulté : {{recipe.niveau}}</p>
         <p>Temps de préparation : {{recipe.tempsPreparation}}</p>
         <div class="rowButton">
-            <input type="button" value="modifier">
-            <input type="button" value="supprimer">
+            <router-link :to="`/edit/${recipe.id}`" class="btn btn-small" @click.prevent="onEdit">Modifier</router-link>
+            <a href="#" class="btn btn-small" @click.prevent="onDelete">Supprimer</a>
         </div>
             </article>
 </template>
@@ -22,6 +22,14 @@ export default {
             required: true
         }
     },
+    methods: {
+        onDelete : function(){
+            this.$emit('delete', this.recipe)
+        },
+        onEdit: function(){
+            this.$emit('edit', this.recipe)
+        }
+    }
 }
 </script>
 <style>
