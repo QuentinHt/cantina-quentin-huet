@@ -3,31 +3,36 @@
 
         <div class="form-group">
             <label for="titre">Titre de la recette :</label>
-            <input type="text" id="titre" v-model="recipe.titre">
+            <input type="text" id="titre" v-model="$v.recipe.titre.$model">
+            <span v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.required">Le champs est requis</span>
         </div>
 
         <div class="form-group">
             <label for="description">Description courte de la recette</label>
-            <input type="text" id="description" v-model="recipe.description">
+            <input type="text" id="description" v-model="$v.recipe.description.$model">
+            <span v-if="$v.recipe.description.$dirty && !$v.recipe.description.required">Le champs est requis</span>
         </div>
 
         <div class="form-group">
             <label for="niveau">Niveau : </label>
-            <select name="niveau" id="niveau" v-model="recipe.niveau">
+            <select name="niveau" id="niveau" v-model="$v.recipe.niveau.$model">
                 <option value="padawan">padawan</option>
                 <option value="jedi">jedi</option>
                 <option value="maitre">maitre</option>
             </select>
+            <span v-if="$v.recipe.niveau.$dirty && !$v.recipe.niveau.required">Le champs est requis</span>
         </div>
 
         <div class="form-group">
             <label for="nbrPers">Nombre de personnes</label>
-            <input type="number" id="nbrPers" v-model.number="recipe.personnes">
+            <input type="number" id="nbrPers" v-model.number="$v.recipe.personnes.$model">
+            <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">Le champs est requis</span>
         </div>
 
         <div class="form-group">
             <label for="tmpsPrep">Temps de préparation ( en minutes )</label>
-            <input type="number" id="tmpsPrep" v-model.number="recipe.tempsPreparation">
+            <input type="number" id="tmpsPrep" v-model.number="$v.recipe.tempsPreparation.$model">
+            <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">Le champs est requis</span>
         </div>
 
         <div class="form-group">
@@ -64,7 +69,8 @@
         </div>
         <div class="form-group">
             <label for="photo">Url de la photo</label>
-            <input type="url" id="photo" v-model="recipe.photo">
+            <input type="url" id="photo" v-model="$v.recipe.photo.$model">
+            <span v-if="$v.recipe.photo.$dirty && !$v.recipe.photo.required">Le champs est requis</span>
         </div>
 
         <input type="submit" value="Envoyer">
@@ -106,14 +112,14 @@ export default {
     }
   },
   validations: {
-      titre: "",
+      recipe: {
+          titre: {required},
           description: {required, alpha},
           niveau: {required, numeric},
           personnes: {required, numeric},
           tempsPreparation: {required, numeric},
-          etapes: {required, alpha},
-          ingredients: {required, alphaNum},
           photo: {url},
+      }
   },
       computed: {
         /*recupNumber: function(){
@@ -152,6 +158,8 @@ console.log(ingr)
             this.recipe.etapes.push("")
         },
         onSubmit: function() {
+        if(this.$v.recipe.$invalid) 
+        return this.$v.recipe.$touch();
         this.$emit('send', this.recipe)
         },
         findIndexIngredient: function(value){
