@@ -33,7 +33,24 @@
         <div class="form-group">
             <label for="ingredients">Ingrédients : </label>
             <div id="form-ingredients">
+
                 <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" v-on:emitIndex="findIndexIngredient(index)" :index="index" :recipe="recipe" v-on:emitIngredient="changeData"/>
+
+            <!--    <ul>
+                    <li v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" :index="index">
+                        <input type="number" v-model="recupNumber">
+                        <select name="" v-model="recupType" id="">
+                        <option value=""></option>
+                        <option value="ml">ml</option>
+                        <option value="cl">cl</option>
+                        <option value="l">l</option>
+                        <option value="mg">mg</option>
+                        <option value="g">g</option>
+                        <option value="kg">kg</option>
+                        </select>
+                        <input type="text" v-model="recipe.ingredients[index][1]">
+                    </li>
+                </ul>-->
             </div>
             <input type="button" value="Ajouter un ingrédient" @click.prevent="addIngredient">
         </div>
@@ -82,7 +99,7 @@ export default {
           personnes: "",
           tempsPreparation: "",
           etapes: [""],
-          ingredients: [""],
+          ingredients: ["",""],
           photo: "",
         };
       }
@@ -98,6 +115,32 @@ export default {
           ingredients: {required, alphaNum},
           photo: {url},
   },
+      computed: {
+        /*recupNumber: function(){
+            var ingr = this.recipe.ingredients[3][0]
+            var number = 12;
+            ingr = ingr.split('');
+            for(var i=0;i<ingr.length;i++){
+                if(isNaN(ingr[i]) === false){
+                    number = number + ingr[i]
+                }
+            }
+console.log(ingr)
+            return (ingr)
+        },
+        recupType: function(){
+           /* var ingr = this.recipe.ingredients[this.index][0]
+            ingr = ingr.split('');
+            var type = '';
+            for(var i=0;i<ingr.length;i++){
+                if(isNaN(ingr[i]) === true){
+                    type = type + ingr[i]
+                }
+            }
+            return (type)
+        },*/
+        
+    },
     components: {
         formIngredient
     },

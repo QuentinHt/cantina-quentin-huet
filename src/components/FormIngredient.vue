@@ -1,7 +1,7 @@
 <template>
     <form class="form-ingredient">
-                <input type="number" v-model="recupNumber" v-on:keyup="emitIngredient">
-                <select name="" id="" v-model="recupType"  v-on:click="emitIngredient">
+                <input type="number" v-model="ingredientNumber" v-on:keyup="emitIngredient">
+                <select name="" id="" v-model="ingredientType" v-on:click="emitIngredient">
                     <option value=""></option>
                     <option value="ml">ml</option>
                     <option value="cl">cl</option>
@@ -19,8 +19,9 @@ export default {
     name: 'formIngredient',
     data: function() {
         return {
-            ingredientNumber: this.recipe.ingredients[this.index][0],
-            ingredientType: '',
+            test: 'test',
+            ingredientNumber: this.recupNumber(),
+            ingredientType: this.recupType(),
             ingredientName: this.recipe.ingredients[this.index][1],
         }
     },
@@ -34,35 +35,15 @@ export default {
         }
     },
     computed: {
-        recupNumber: function(){
-            var ingr = this.recipe.ingredients[this.index][0]
-            ingr = ingr.split('');
-            var number = '';
-            for(var i=0;i<ingr.length;i++){
-                if(isNaN(ingr[i]) === false){
-                    number = number + ingr[i]
-                }
-            }
-            return (number)
-        },
-        recupType: function(){
-            var ingr = this.recipe.ingredients[this.index][0]
-            ingr = ingr.split('');
-            var type = '';
-            for(var i=0;i<ingr.length;i++){
-                if(isNaN(ingr[i]) === true){
-                    type = type + ingr[i]
-                }
-            }
-            return (type)
-        },
+
         ingredient: function(){
             console.log(this.recupType)
             if(this.recupType != undefined){
-                return [this.ingredientNumber + this.recupType, this.ingredientName]
+                console.log(this.recupNumber + this.recupType, this.ingredientName)
+                return [this.ingredientNumber + this.ingredientType, this.ingredientName]
             }
             else {
-                return [this.ingredientNumber, this.ingredientName]
+                return [this.recupNumber, this.ingredientName]
             }
         },
 
@@ -74,12 +55,45 @@ export default {
         emitIngredient (event, indexIngredient){
             this.$emit('emitIndex', indexIngredient)
             this.$emit('emitIngredient', this.ingredient);
+            console.log(this.recipe.ingredients[this.index][0])
         },
         supprIngr (){
             console.log(this.index)
             console.log(this.recipe.ingredients[this.index])
             this.recipe.ingredients.splice(this.index,1)
-        }
+        },
+            recupNumber: function(){
+            if(this.recipe.description != ''){
+                            var ingr = this.recipe.ingredients[this.index][0]
+            ingr = ingr.split('');
+            var number = '';
+            for(var i=0;i<ingr.length;i++){
+                if(isNaN(ingr[i]) === false){
+                    number = number + ingr[i]
+                }
+            }
+            return (number)
+            }
+            else {
+                return ''
+            }
+        },
+        recupType: function(){
+            if(this.recipe.description != ''){
+            var ingr = this.recipe.ingredients[this.index][0]
+            ingr = ingr.split('');
+            var type = '';
+            for(var i=0;i<ingr.length;i++){
+                if(isNaN(ingr[i]) === true){
+                    type = type + ingr[i]
+                }
+            }
+            return (type)
+            }
+            else {
+                return ''
+            }
+        },
     }
 }
 </script>
