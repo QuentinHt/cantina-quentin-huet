@@ -10,6 +10,9 @@
                     <option value="jedi">jedi</option>
                     <option value="maitre">maitre</option>
                 </select>
+                <input type="number" v-model="minPers">
+                <input type="number" v-model="maxPers">
+                <input type="number" v-model="tempsMax">
                 <label for="filter">Filtrer par :</label>
 
             </form>
@@ -47,19 +50,25 @@ export default {
             recipesList: null,
             searchText: '',
             filterNiveau: '',
-            filterValue: 'name'
+            minPers:'',
+            maxPers:'',
+            tempsMax:'',
+            filterValue: 'name',
         }
     },     
               computed: {
     filteredList: function() {
-      return this.recipesList.filter(({ titre, niveau }) => {
+      return this.recipesList.filter(({ titre, niveau, personnes, tempsPreparation }) => {
+          let filterValue = ''
         let searchText = this.searchText.toLowerCase();
         let filterNiveau = this.filterNiveau;
+        let filterminPers = this.minPers === '' ? 0 : this.minPers
+        let filtermaxPers = this.maxPers === '' ? 10000 : this.maxPers
+        let filterTemps = this.tempsMax === '' ? 10000 : this.tempsMax
         titre = titre.toLowerCase();
 
-        return this.filterValue === "name"
-          ? titre.includes(searchText) && niveau.includes(filterNiveau)
-          : niveau.includes(filterNiveau);
+          filterValue = titre.includes(searchText) && niveau.includes(filterNiveau) && personnes >= filterminPers && personnes <= filtermaxPers && tempsPreparation <= filterTemps
+          return filterValue
       });
     }
   },                        
