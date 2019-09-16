@@ -77,7 +77,6 @@ export default {
         .fetchAll()
         .then(recipesList => {
             this.recipesList = recipesList;
-            console.log(recipesList)
         })
     }
 }

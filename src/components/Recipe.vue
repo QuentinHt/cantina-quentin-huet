@@ -4,8 +4,8 @@
         <p>{{recipe.description}}</p>
         <img :src="recipe.photo" alt="">
         <p>{{recipe.niveau}}</p>
-        <p>{{recipe.tempsPreparation}}</p>
-        <p>{{recipe.personnes}}</p>
+        <p>{{tempsPrep}}</p>
+        <p>{{nbPersonne}}</p>
         <h2>Ingrédients : </h2>
         <ul>
             <li v-for="ingredient in recipe.ingredients" :key="ingredient.id">{{ingredient[0]}} {{ingredient[1]}}</li>
@@ -25,8 +25,30 @@ export default {
     name: 'Recipe',
     data: function() {
         return {
-            recipe: null,
-            id: 3
+            recipe: '',
+        }
+    },
+    computed: {
+        tempsPrep: function(){
+            let tempsMinute = this.recipe.tempsPreparation
+            if (tempsMinute >= 60){
+                var nbHour = parseInt(tempsMinute / 60);
+			    var nbminuteRestante = (tempsMinute % 60);
+                let tempsHeureMinute = nbHour + 'h' + nbminuteRestante
+                return tempsHeureMinute
+            }
+            else {
+                return (tempsMinute + ' minutes')
+            }
+        },
+        nbPersonne: function(){
+            let nbPersonne = this.recipe.personnes
+            if(nbPersonne > 1){
+                return (nbPersonne + ' personnes')
+            }
+            else {
+                return (nbPersonne + ' personne')
+            }
         }
     },                             
     created: function(){
@@ -34,7 +56,6 @@ export default {
         .fetchOne(this.$route.params.id)
         .then(recipe => {
             this.recipe = recipe;
-            console.log(this.recipe)
         })
     }
 }

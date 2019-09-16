@@ -6,7 +6,7 @@
         </div>
         <img :src="recipe.photo" alt="">
         <p>Difficulté : {{recipe.niveau}}</p>
-        <p>Temps de préparation : {{recipe.tempsPreparation}}</p>
+        <p>Temps de préparation : {{tempsPrep}}</p>
         <div class="rowButton">
             <router-link :to="`/edit/${recipe.id}`" class="btn btn-small" @click.prevent="onEdit">Modifier</router-link>
             <a href="#" class="btn btn-small" @click.prevent="onDelete">Supprimer</a>
@@ -16,10 +16,25 @@
 <script>
 export default {
     name: 'Recipecard',
+
     props : {
         recipe : {
             type: Object,
             required: true
+        }
+    },
+    computed: {
+        tempsPrep: function(){
+            let tempsMinute = this.recipe.tempsPreparation
+            if (tempsMinute >= 60){
+                var nbHour = parseInt(tempsMinute / 60);
+			    var nbminuteRestante = (tempsMinute % 60);
+                let tempsHeureMinute = nbHour + 'h' + nbminuteRestante
+                return tempsHeureMinute
+            }
+            else {
+                return (tempsMinute + ' minutes')
+            }
         }
     },
     methods: {
