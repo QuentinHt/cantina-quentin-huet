@@ -33,7 +33,7 @@
         <div class="form-group">
             <label for="ingredients">Ingrédients : </label>
             <div id="form-ingredients">
-                <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" v-on:emitIndex="findIndexIngredient(index)" v-on:emitIngredient="changeData"/>
+                <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" v-on:emitIndex="findIndexIngredient(index)" :index="index" :recipe="recipe" v-on:emitIngredient="changeData"/>
             </div>
             <input type="button" value="Ajouter un ingrédient" @click.prevent="addIngredient">
         </div>
@@ -51,11 +51,14 @@
         </div>
 
         <input type="submit" value="Envoyer">
+
+        <p>{{recipe.ingredients}}</p>
     </form>
 </template>
 
 <script>
 import formIngredient from './FormIngredient.vue'
+import { required, alpha, url, numeric, alphaNum } from "vuelidate/lib/validators";
 export default {
     data: function() {
         return {
@@ -80,20 +83,30 @@ export default {
           tempsPreparation: "",
           etapes: [""],
           ingredients: [""],
-          photo: ""
+          photo: "",
         };
       }
     }
+  },
+  validations: {
+      titre: "",
+          description: {required, alpha},
+          niveau: {required, numeric},
+          personnes: {required, numeric},
+          tempsPreparation: {required, numeric},
+          etapes: {required, alpha},
+          ingredients: {required, alphaNum},
+          photo: {url},
   },
     components: {
         formIngredient
     },
     methods: {
         addIngredient: function(){
-            this.ingredientsBase.push(["",""]);
+            this.recipe.ingredients.push(["",""]);
         },
         addEtape: function(){
-            this.etapesBase.push("")
+            this.recipe.etapes.push("")
         },
         onSubmit: function() {
         this.$emit('send', this.recipe)
