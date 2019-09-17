@@ -2,6 +2,8 @@
     <form class="recipeForm" @submit.prevent="onSubmit">
 
         <div class="form-group">
+                    <h1 class="labelIngr">Informations générales : </h1>
+
             <label for="titre">Titre de la recette :</label>
             <input type="text" id="titre" v-model="$v.recipe.titre.$model">
             <span v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.required">Le champs est requis</span>
@@ -23,7 +25,7 @@
                 <option value="maitre">maitre</option>
             </select>
             <span v-if="$v.recipe.niveau.$dirty && !$v.recipe.niveau.required">Le champs est requis</span>
-            <span v-if="!$v.recipe.niveau.minValue">La valeur doit être supérieure à 0</span>
+            
         </div>
 
         <div class="form-group">
@@ -37,10 +39,11 @@
             <label for="tmpsPrep">Temps de préparation ( en minutes )</label>
             <input type="number" id="tmpsPrep" v-model.number="$v.recipe.tempsPreparation.$model">
             <span v-if="$v.recipe.tempsPreparation.$dirty && !$v.recipe.tempsPreparation.required">Le champs est requis</span>
+            <span v-if="!$v.recipe.tempsPreparation.minValue">La valeur doit être supérieure à 0</span>
         </div>
 
         <div class="form-group">
-            <label for="ingredients" class="labelIngr">Ingrédients : </label>
+            <h1 class="labelIngr">Ingrédients : </h1>
             <div id="form-ingredients">
 
                 <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="index" v-on:emitIndex="findIndexIngredient(index)" :index="index" :recipe="recipe" v-on:emitIngredient="changeData"/>
@@ -49,7 +52,7 @@
         </div>
 
         <div class="form-group">
-            <label class="labelEtape" for="etape">Liste des étapes :</label>
+            <h1 class="labelEtape">Liste des étapes :</h1>
             <div class="form-etapes">
                 <ul>
                     <li v-for="(etape, index) in recipe.etapes" :key="index">
@@ -66,7 +69,7 @@
             <input type="url" id="photo" v-model="recipe.photo">
         </div>
 
-        <input type="submit" value="Envoyer">
+        <input type="submit" value="Envoyer" class="inputSubmit">
 
     </form>
 </template>
@@ -107,10 +110,9 @@ export default {
       recipe: {
           titre: {required, minLength: minLength(3)},
           description: {required, minLength: minLength(5)},
-          niveau: {required, minValue: minValue(1)},
+          niveau: {required},
           personnes: {required, numeric, minValue: minValue(1)},
-          tempsPreparation: {required, numeric},
-          photo:{url},
+          tempsPreparation: {required, numeric, minValue: minValue(1)},
           etapes: {minLength: minLength(1)}
       }
   },
@@ -150,32 +152,50 @@ export default {
 <style>
     .recipeForm {
         text-align: left;
-        padding: 0 20%;
+        padding: 0 10%;
         margin-top: 50px;
-
+        display: flex;
+        flex-direction: column;
+        align-items: center
     }
-    .form-group {
-        margin: 10px 0
+    .recipeForm .form-group {
+        margin: 10px 0;
+        text-align: left;
+        width: 460px
     }
-    .form-group label {
+    .recipeForm .form-group h1 {
+        margin-top: 30px;
+    }
+    .recipeForm .form-group label {
         width: 300px;
         display: inline-block;
     }
-    .form-group input {
+    .recipeForm .form-group input {
         height: 20px;
         padding: 2px;
+        width: 150px
     }
-    .form-group ul li {
+    .recipeForm .form-group select {
+        widows: 150px;
+        height: 20px
+    }
+    .recipeForm .form-group ul li {
         list-style-type: none;
         display: flex;
         align-items: center;
-        margin: 10px
+        margin: 10px 10px 10px 0
     }
-    .form-etapes ul li button {
+    .recipeForm .form-etapes ul li button {
         margin-left: 10px;
         width: 100px
     }
-    .labelEtape, .labelIngr {
+    .recipeForm .form-etapes ul {
+        padding: 0
+    }
+    .recipeForm .labelEtape, .labelIngr {
         font-weight: 800
+    }
+    .recipeForm .inputSubmit {
+        width: 100px;
     }
 </style>

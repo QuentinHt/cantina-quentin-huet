@@ -18,15 +18,16 @@
                     <option value="maitre">maitre</option>
                 </select><br>
                 </div>
-                <div class="form-group">
-                <label for="persMin">Nombre de personnes : entre </label>
+                <div class="form-group filterPers">
+                <label for="persMin">Nombre de personnes :</label>
+                <label for="persMin"> entre </label>
                 <input type="number" id="persMin" v-model="minPers">
                 <label for="persMax"> et </label>
                 <input type="number" id="persMax" v-model="maxPers">
                 <label for="persMax"> personnes</label><br>
                 </div>
                 <div class="form-group">
-                <label for="tempsMax">Durée maximum de préparation</label>
+                <label for="tempsMax">Durée maximum : </label>
                 <input type="number" placeholder="Temps maximum" id="tempsMax" v-model="tempsMax">
                 </div>
             </form>
@@ -122,15 +123,23 @@ export default {
 } 
 .containerList .filterContainer {
     display: flex;
-    justify-content: center
-
+margin-left: 10%;
 }
 .containerList .filterContainer form {
     margin-top: 60px;
 }
 .containerList .filterContainer form .form-group{
     display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    margin: 10px 0;
 }
-
+.filterPers input {
+    width: 30px;
+    margin: 0 5px;
+}
+.filterform .form-group label:nth-of-type(1) {
+    width: 200px
+}
 </style>
 
