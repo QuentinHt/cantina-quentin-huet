@@ -11,6 +11,7 @@
                     <option value="kg">kg</option>
                 </select>
                 <input type="text" v-on:keyup="emitIngredient" v-model="ingredientName">
+                <button v-on:click="supprIngr">Supprimer</button>
     </form>
 </template>
 
@@ -37,9 +38,7 @@ export default {
     computed: {
 
         ingredient: function(){
-            console.log(this.recupType)
             if(this.recupType != undefined){
-                console.log(this.recupNumber + this.recupType, this.ingredientName)
                 return [this.ingredientNumber + this.ingredientType, this.ingredientName]
             }
             else {
@@ -55,9 +54,9 @@ export default {
         emitIngredient (event, indexIngredient){
             this.$emit('emitIndex', indexIngredient)
             this.$emit('emitIngredient', this.ingredient);
-            console.log(this.recipe.ingredients[this.index][0])
         },
         supprIngr (){
+            console.log(this.recipe.ingredients)
             console.log(this.index)
             console.log(this.recipe.ingredients[this.index])
             this.recipe.ingredients.splice(this.index,1)

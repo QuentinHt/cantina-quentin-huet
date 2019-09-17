@@ -5,12 +5,14 @@
             <label for="titre">Titre de la recette :</label>
             <input type="text" id="titre" v-model="$v.recipe.titre.$model">
             <span v-if="$v.recipe.titre.$dirty && !$v.recipe.titre.required">Le champs est requis</span>
+            <span v-if="!$v.recipe.titre.minLength">Le champs nécessite 3 caractères minimum</span>
         </div>
 
         <div class="form-group">
             <label for="description">Description courte de la recette</label>
             <input type="text" id="description" v-model="$v.recipe.description.$model">
             <span v-if="$v.recipe.description.$dirty && !$v.recipe.description.required">Le champs est requis</span>
+            <span v-if="!$v.recipe.description.minLength">Le champs nécessite 5 caractères minimum</span>
         </div>
 
         <div class="form-group">
@@ -39,7 +41,7 @@
             <label for="ingredients">Ingrédients : </label>
             <div id="form-ingredients">
 
-                <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" v-on:emitIndex="findIndexIngredient(index)" :index="index" :recipe="recipe" v-on:emitIngredient="changeData"/>
+                <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="index" v-on:emitIndex="findIndexIngredient(index)" :index="index" :recipe="recipe" v-on:emitIngredient="changeData"/>
 
             <!--    <ul>
                     <li v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" :index="index">
@@ -63,14 +65,13 @@
         <div class="form-group">
             <label for="etape">Liste des étapes</label>
             <div class="form-etapes">
-            <textarea name="etape" id="etape" cols="30" rows="10" v-for="(etape, index) in recipe.etapes" :key="etape.id" v-model="recipe.etapes[index]"></textarea>
+            <textarea name="etape" id="etape" cols="30" rows="10" v-for="(etape, index) in recipe.etapes" :key="index" v-model="recipe.etapes[index]"></textarea>
             </div>
             <input type="button" value="Ajouter une étape" @click.prevent="addEtape">
         </div>
         <div class="form-group">
             <label for="photo">Url de la photo</label>
-            <input type="url" id="photo" v-model="$v.recipe.photo.$model">
-            <span v-if="$v.recipe.photo.$dirty && !$v.recipe.photo.required">Le champs est requis</span>
+            <input type="url" id="photo" v-model="recipe.photo">
         </div>
 
         <input type="submit" value="Envoyer">
@@ -81,7 +82,7 @@
 
 <script>
 import formIngredient from './FormIngredient.vue'
-import { required, alpha, url, numeric, alphaNum } from "vuelidate/lib/validators";
+import { required, alpha, url, numeric, alphaNum, minLength } from "vuelidate/lib/validators";
 export default {
     data: function() {
         return {
@@ -113,12 +114,12 @@ export default {
   },
   validations: {
       recipe: {
-          titre: {required},
-          description: {required, alpha},
-          niveau: {required, numeric},
+          titre: {required, minLength: minLength(3)},
+          description: {required, minLength: minLength(5)},
+          niveau: {required},
           personnes: {required, numeric},
           tempsPreparation: {required, numeric},
-          photo: {url},
+        
       }
   },
       computed: {

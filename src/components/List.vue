@@ -3,17 +3,24 @@
 
             <h1>Liste des recettes</h1>
             <hr>
+            <h2>Filtrer par :</h2>
             <form class="filterform">
-                <input type="search" placeholder="Tapez un nom ou un lieu ..." v-model="searchText">
-                <select name="niveauFilter" id="" v-model="filterNiveau">
+                                <label for="filterName">Nom :</label>
+
+                <input type="search" id="filterName" placeholder="Titre de la recette" v-model="searchText">
+                <label for="filterNiveau">Niveau :</label>
+                <select name="niveauFilter" id="filterNiveau" v-model="filterNiveau">
                     <option value="padawan">padawan</option>
                     <option value="jedi">jedi</option>
                     <option value="maitre">maitre</option>
-                </select>
-                <input type="number" v-model="minPers">
-                <input type="number" v-model="maxPers">
-                <input type="number" v-model="tempsMax">
-                <label for="filter">Filtrer par :</label>
+                </select><br>
+                <label for="persMin">Nombre de personnes : entre </label>
+                <input type="number" id="persMin" v-model="minPers">
+                <label for="persMax"> et </label>
+                <input type="number" id="persMax" v-model="maxPers">
+                <label for="persMax"> personnes</label><br>
+                <label for="tempsMax">Durée maximum de préparation</label>
+                <input type="number" placeholder="Temps maximum" id="tempsMax" v-model="tempsMax">
 
             </form>
             <div class="userlist" v-if="recipesList">

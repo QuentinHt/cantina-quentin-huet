@@ -1,15 +1,15 @@
 <template>
-    <article class="recipecard">
-        <div class="row1">
-            <h1>{{recipe.titre}}</h1>
+    <article class="recipecard" :style="'background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),url('+recipe.photo+'); background-size: cover; background-position: center'">
+            <div class="row1" @click.prevent="checkRecipe">
+            <p>{{tempsPrep}}</p>
             <p>{{recipe.personnes}}<img src="../assets/avatar.png"></p>
-        </div>
-        <img :src="recipe.photo" alt="">
-        <p>Difficulté : {{recipe.niveau}}</p>
-        <p>Temps de préparation : {{tempsPrep}}</p>
+            </div>
+            <div class="rowCenter" @click.prevent="checkRecipe"><h1>{{recipe.titre}}</h1>
+            <p>Niveau : {{recipe.niveau}}</p>
+            </div>
         <div class="rowButton">
-            <router-link :to="`/edit/${recipe.id}`" class="btn btn-small" @click.prevent="onEdit">Modifier</router-link>
-            <a href="#" class="btn btn-small" @click.prevent="onDelete">Supprimer</a>
+            <img src="../assets/writing.png" alt="" @click.prevent="onEdit">
+            <img src="../assets/delete.png" alt="" @click.prevent="onDelete">
         </div>
             </article>
 </template>
@@ -42,7 +42,11 @@ export default {
             this.$emit('delete', this.recipe)
         },
         onEdit: function(){
-            this.$emit('edit', this.recipe)
+            this.$emit('edit', this.recipe);
+            this.$router.replace(`/edit/${this.recipe.id}`)
+        },
+        checkRecipe: function(){
+            this.$router.replace(`/recipe/${this.recipe.id}`)
         }
     }
 }
@@ -50,23 +54,35 @@ export default {
 <style>
     .recipecard {
         border: 1px solid black;
+        height: 500px;
+        color: white;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
+
     .recipecard .row1 {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 5px
     }
-    .recipecard .row1 h1 {
-        margin: 0
-    }
+.recipecard > div {
+    padding: 20px
+}
     .recipecard .row1 p {
         margin: 0
     }
     .recipecard .row1 > p img {
         height: 24px
     }
-    .recipecard > img {
-        height: 400px
-    }
+.recipecard .rowButton{
+    display: flex;
+    justify-content: space-around;
+}
+.recipecard .rowButton img {
+    height: 42px;
+    cursor: pointer
+}
 </style>
