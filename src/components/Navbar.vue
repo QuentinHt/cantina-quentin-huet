@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar">
             <div class="container">
-                <img src="../assets/lightsaber.png" alt="">
+                <img src="../assets/lightsaber.png" alt="" @click.prevent="backToHome">
                 <div>
                 <router-link to="/">Accueil</router-link>
                 <router-link to="/list">Liste des recettes</router-link>
@@ -10,7 +10,15 @@
             </div>
         </nav>
 </template>
-
+<script>
+export default {
+    methods: {
+        backToHome: function(){
+            this.$router.replace('/')
+        }
+    }
+}
+</script>
 <style>
 .navbar {
     background-color:black;
@@ -64,6 +72,7 @@
     margin-left: auto;
 }
 .navbar img {
-    height: 40px
+    height: 40px;
+    cursor: pointer
 }
 </style>

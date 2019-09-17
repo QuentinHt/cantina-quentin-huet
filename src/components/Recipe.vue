@@ -62,11 +62,15 @@ export default {
         .then(recipe => {
             this.recipe = recipe;
         })
+        .catch(function(){
+            alert("La recette n'existe pas")
+            this.$router.replace(`/list`)
+        })
     },
     methods: {
                 deleteRecipe: function(recipeToDelete){
-                    console.log(recipeToDelete)
-                  recipeToDelete = this.recipe
+                  if(confirm('Vous allez supprimer cette recette, êtes vous sur ?')){
+                    recipeToDelete = this.recipe
                     UserService.deleteRecipe(recipeToDelete).then(res => {
                     let index = recipeToDelete.id;
                     if (index > -1){
@@ -75,11 +79,12 @@ export default {
                     }
                 })
             .catch(errorMessage => alert(errorMessage))
+                  }
         },
         onEdit: function(){
             this.$emit('edit', this.recipe);
             this.$router.replace(`/edit/${this.recipe.id}`)
-        },
+        }
     }
 }
 </script>

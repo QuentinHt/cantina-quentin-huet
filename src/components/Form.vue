@@ -38,32 +38,16 @@
         </div>
 
         <div class="form-group">
-            <label for="ingredients">Ingrédients : </label>
+            <label for="ingredients" class="labelIngr">Ingrédients : </label>
             <div id="form-ingredients">
 
                 <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="index" v-on:emitIndex="findIndexIngredient(index)" :index="index" :recipe="recipe" v-on:emitIngredient="changeData"/>
-
-            <!--    <ul>
-                    <li v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id" :index="index">
-                        <input type="number" v-model="recupNumber">
-                        <select name="" v-model="recupType" id="">
-                        <option value=""></option>
-                        <option value="ml">ml</option>
-                        <option value="cl">cl</option>
-                        <option value="l">l</option>
-                        <option value="mg">mg</option>
-                        <option value="g">g</option>
-                        <option value="kg">kg</option>
-                        </select>
-                        <input type="text" v-model="recipe.ingredients[index][1]">
-                    </li>
-                </ul>-->
             </div>
             <input type="button" value="Ajouter un ingrédient" @click.prevent="addIngredient">
         </div>
 
         <div class="form-group">
-            <label for="etape">Liste des étapes</label>
+            <label class="labelEtape" for="etape">Liste des étapes :</label>
             <div class="form-etapes">
                 <ul>
                     <li v-for="(etape, index) in recipe.etapes" :key="index">
@@ -124,35 +108,10 @@ export default {
           niveau: {required},
           personnes: {required, numeric},
           tempsPreparation: {required, numeric},
+          photo:{url},
           etapes: {minLength: minLength(1)}
       }
   },
-      computed: {
-        /*recupNumber: function(){
-            var ingr = this.recipe.ingredients[3][0]
-            var number = 12;
-            ingr = ingr.split('');
-            for(var i=0;i<ingr.length;i++){
-                if(isNaN(ingr[i]) === false){
-                    number = number + ingr[i]
-                }
-            }
-console.log(ingr)
-            return (ingr)
-        },
-        recupType: function(){
-           /* var ingr = this.recipe.ingredients[this.index][0]
-            ingr = ingr.split('');
-            var type = '';
-            for(var i=0;i<ingr.length;i++){
-                if(isNaN(ingr[i]) === true){
-                    type = type + ingr[i]
-                }
-            }
-            return (type)
-        },*/
-        
-    },
     components: {
         formIngredient
     },
@@ -164,8 +123,13 @@ console.log(ingr)
             this.recipe.etapes.push("")
         },
         onSubmit: function() {
-        if(this.$v.recipe.$invalid) 
+        if(this.$v.recipe.$invalid){
+        alert('Certains champs sont mal remplis ou sont manquants')
         return this.$v.recipe.$touch();
+        }
+        if(this.recipe.photo === ""){
+            this.recipe.photo = "../assets/assietteBase.png"
+        }
         this.$emit('send', this.recipe)
         },
         findIndexIngredient: function(value){
@@ -185,7 +149,8 @@ console.log(ingr)
     .recipeForm {
         text-align: left;
         padding: 0 20%;
-        margin-top: 50px
+        margin-top: 50px;
+
     }
     .form-group {
         margin: 10px 0
@@ -201,9 +166,14 @@ console.log(ingr)
     .form-group ul li {
         list-style-type: none;
         display: flex;
-        align-items: center
-    }
-    .form-groupe ul li textarea {
+        align-items: center;
         margin: 10px
+    }
+    .form-etapes ul li button {
+        margin-left: 10px;
+        width: 100px
+    }
+    .labelEtape, .labelIngr {
+        font-weight: 800
     }
 </style>

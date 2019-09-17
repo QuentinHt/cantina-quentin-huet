@@ -97,3 +97,9 @@ export default {
     }
 }
 </script>
+
+<style>
+    .form-ingredient input{
+        margin: 5px 
+    }
+</style>
