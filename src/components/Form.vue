@@ -23,12 +23,14 @@
                 <option value="maitre">maitre</option>
             </select>
             <span v-if="$v.recipe.niveau.$dirty && !$v.recipe.niveau.required">Le champs est requis</span>
+            <span v-if="!$v.recipe.niveau.minValue">La valeur doit être supérieure à 0</span>
         </div>
 
         <div class="form-group">
             <label for="nbrPers">Nombre de personnes</label>
             <input type="number" id="nbrPers" v-model.number="$v.recipe.personnes.$model">
             <span v-if="$v.recipe.personnes.$dirty && !$v.recipe.personnes.required">Le champs est requis</span>
+            <span v-if="!$v.recipe.personnes.minValue">La valeur doit être supérieure à 0</span>
         </div>
 
         <div class="form-group">
@@ -71,7 +73,7 @@
 
 <script>
 import formIngredient from './FormIngredient.vue'
-import { required, alpha, url, numeric, alphaNum, minLength } from "vuelidate/lib/validators";
+import { required, alpha, url, numeric, alphaNum, minLength ,minValue } from "vuelidate/lib/validators";
 export default {
     data: function() {
         return {
@@ -105,8 +107,8 @@ export default {
       recipe: {
           titre: {required, minLength: minLength(3)},
           description: {required, minLength: minLength(5)},
-          niveau: {required},
-          personnes: {required, numeric},
+          niveau: {required, minValue: minValue(1)},
+          personnes: {required, numeric, minValue: minValue(1)},
           tempsPreparation: {required, numeric},
           photo:{url},
           etapes: {minLength: minLength(1)}

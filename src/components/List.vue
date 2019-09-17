@@ -3,26 +3,34 @@
 
             <h1>Liste des recettes</h1>
             <hr>
-            <h2>Filtrer par :</h2>
+            <div class="filterContainer">
+            <h2 class="testH2">Filtrer par :</h2>
             <form class="filterform">
-                                <label for="filterName">Nom :</label>
-
+                <div class="form-group">
+                <label for="filterName">Nom :</label>
                 <input type="search" id="filterName" placeholder="Titre de la recette" v-model="searchText">
+                </div>
+                <div class="form-group">
                 <label for="filterNiveau">Niveau :</label>
                 <select name="niveauFilter" id="filterNiveau" v-model="filterNiveau">
                     <option value="padawan">padawan</option>
                     <option value="jedi">jedi</option>
                     <option value="maitre">maitre</option>
                 </select><br>
+                </div>
+                <div class="form-group">
                 <label for="persMin">Nombre de personnes : entre </label>
                 <input type="number" id="persMin" v-model="minPers">
                 <label for="persMax"> et </label>
                 <input type="number" id="persMax" v-model="maxPers">
                 <label for="persMax"> personnes</label><br>
+                </div>
+                <div class="form-group">
                 <label for="tempsMax">Durée maximum de préparation</label>
                 <input type="number" placeholder="Temps maximum" id="tempsMax" v-model="tempsMax">
-
+                </div>
             </form>
+            </div>
             <div class="userlist" v-if="recipesList">
                 <Recipecard v-for="recipe in filteredList" :recipe="recipe" :key="recipe.id" @delete='deleteRecipe'/>
             </div>
@@ -112,6 +120,17 @@ export default {
 .containerList > h1 {
     margin-top: 100px;
 } 
+.containerList .filterContainer {
+    display: flex;
+    justify-content: center
+
+}
+.containerList .filterContainer form {
+    margin-top: 60px;
+}
+.containerList .filterContainer form .form-group{
+    display: flex;
+}
 
 </style>
 
