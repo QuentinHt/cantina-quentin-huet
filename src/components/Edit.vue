@@ -1,7 +1,6 @@
 <template>
-    <div class="container centered">
-
-            <h1>Modifier un collaborateur</h1>
+    <div class="container centered containerEdit">
+            <h1>Modifier une recette</h1>
             <hr>
             <Form :recipe='recipe' v-if='recipe' @send='update'/>
         </div>
@@ -34,7 +33,7 @@ export default {
                     return this.$router.replace('/list')
                 }
                 else{
-                    alert(res.message)
+                    return this.$router.replace('/list')
                 }
             })
         }
@@ -42,5 +41,7 @@ export default {
 }
 </script>
 <style>
-
+    h1 {
+        margin-top: 100px
+    }
 </style>

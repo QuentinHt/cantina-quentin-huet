@@ -16,8 +16,9 @@
     background-color:black;
     overflow: hidden;
     margin-bottom: 3em;
-    position: absolute;
-    width: 100%
+    position: fixed;
+    width: 100%;
+    top: 0
 }
 .navbar .container {
     display: flex;

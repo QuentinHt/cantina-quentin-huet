@@ -1,5 +1,5 @@
 <template>
-    <form class="userform" @submit.prevent="onSubmit">
+    <form class="recipeForm" @submit.prevent="onSubmit">
 
         <div class="form-group">
             <label for="titre">Titre de la recette :</label>
@@ -65,7 +65,13 @@
         <div class="form-group">
             <label for="etape">Liste des étapes</label>
             <div class="form-etapes">
-            <textarea name="etape" id="etape" cols="30" rows="10" v-for="(etape, index) in recipe.etapes" :key="index" v-model="recipe.etapes[index]"></textarea>
+                <ul>
+                    <li v-for="(etape, index) in recipe.etapes" :key="index">
+                        <textarea name="etape" id="etape" cols="90" rows="5" v-model="recipe.etapes[index]" ></textarea>
+                        <button @click.prevent="supprEtape(index)">supprimer</button>
+                    </li>
+                </ul>
+            
             </div>
             <input type="button" value="Ajouter une étape" @click.prevent="addEtape">
         </div>
@@ -76,7 +82,6 @@
 
         <input type="submit" value="Envoyer">
 
-        <p>{{recipe.ingredients}}</p>
     </form>
 </template>
 
@@ -119,7 +124,7 @@ export default {
           niveau: {required},
           personnes: {required, numeric},
           tempsPreparation: {required, numeric},
-        
+          etapes: {minLength: minLength(1)}
       }
   },
       computed: {
@@ -168,11 +173,37 @@ console.log(ingr)
         },
         changeData: function(value){
             this.recipe.ingredients[this.indexIngredient] = value;
+        },
+        supprEtape: function(index){
+            this.recipe.etapes.splice(index,1)
         }
     }
 }
 </script>
 
 <style>
-
+    .recipeForm {
+        text-align: left;
+        padding: 0 20%;
+        margin-top: 50px
+    }
+    .form-group {
+        margin: 10px 0
+    }
+    .form-group label {
+        width: 300px;
+        display: inline-block;
+    }
+    .form-group input {
+        height: 20px;
+        padding: 2px;
+    }
+    .form-group ul li {
+        list-style-type: none;
+        display: flex;
+        align-items: center
+    }
+    .form-groupe ul li textarea {
+        margin: 10px
+    }
 </style>

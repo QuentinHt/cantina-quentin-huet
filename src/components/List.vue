@@ -1,5 +1,5 @@
 <template>
-            <div class="container centered">
+            <div class="container centered containerList">
 
             <h1>Liste des recettes</h1>
             <hr>
@@ -93,17 +93,23 @@ export default {
 .userlist {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    
 }
 
 .userlist>* {
     box-sizing: border-box;
-    width: calc(94%/3);
-    margin: 1%;
+    width: calc(88%/3);
+    margin: 2%;
+    min-width: 300px
 }
 
 .filterform {
     margin: 2em 0
-}    
+}   
+.containerList > h1 {
+    margin-top: 100px;
+} 
 
 </style>
 

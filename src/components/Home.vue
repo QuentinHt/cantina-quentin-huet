@@ -16,9 +16,6 @@
             <p>Mais vous pouvez également créer vous même vos propres recettes ! Réveillez le pouvoir de la cuisine qui sommeille en vous et libérer votre créativité !</p>
         </div>
     </div>
-    <footer>
-        Contact : 0600000000<br>Mail : cantina@gmail.com
-    </footer>
     </section>
 </template>
 
@@ -56,7 +53,8 @@ header h1, header h2 {
 
 }
 header h1 {
-    padding-top: 40vh
+    padding-top: 40vh;
+    font-size: 3rem
 }
 header img {
     height: 80px;
@@ -114,15 +112,6 @@ header a {
     justify-content: center;
     align-items: center
 }
-footer {
-    background-color: black;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    color: rgb(200,200,200);
-    height: 100px;
-    margin-top: 100px;
-    padding: 0 10%
-}
+
 
 </style>
