@@ -32,7 +32,7 @@
                 </div>
             </form>
             </div>
-            <div class="userlist" v-if="recipesList">
+            <div class="recipeList" v-if="recipesList">
                 <Recipecard v-for="recipe in filteredList" :recipe="recipe" :key="recipe.id" @delete='deleteRecipe'/>
             </div>
 
@@ -101,14 +101,14 @@ export default {
 </script>
 
 <style>
-.userlist {
+.recipeList {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 
 }
 
-.userlist>* {
+.recipeList>* {
     box-sizing: border-box;
     width: calc(88%/3);
     margin: 2%;
@@ -118,6 +118,9 @@ export default {
 .filterform {
     margin: 2em 0
 }   
+.containerList {
+    min-height: 80vh
+}
 .containerList > h1 {
     margin-top: 100px;
 } 

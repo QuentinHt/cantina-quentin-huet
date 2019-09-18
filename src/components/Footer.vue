@@ -19,6 +19,6 @@ footer {
     color: rgb(200,200,200);
     height: 100px;
     margin-top: 100px;
-    padding: 0 10%
+    padding: 0 10%;
 }
 </style>
