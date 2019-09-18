@@ -61,6 +61,10 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        cursor: pointer
+    }
+    .recipecard:hover {
+        filter: brightness(1.6)
     }
 
     .recipecard .row1 {

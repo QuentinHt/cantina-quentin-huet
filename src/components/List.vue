@@ -13,6 +13,7 @@
                 <div class="form-group">
                 <label for="filterNiveau">Niveau :</label>
                 <select name="niveauFilter" id="filterNiveau" v-model="filterNiveau">
+                    <option value=""></option>
                     <option value="padawan">padawan</option>
                     <option value="jedi">jedi</option>
                     <option value="maitre">maitre</option>

@@ -22,5 +22,8 @@ export default new VueRouter({
         {
             path: '/edit/:id', component: Edit
         }
-    ]
+    ],
+    scrollBehavior(){
+        return {x: 0, y:0}
+    }
 })
