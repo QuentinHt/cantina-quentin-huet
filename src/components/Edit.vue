@@ -29,10 +29,7 @@ export default {
     methods: {
         update: function(){
             UserService.updateRecipe(this.recipe).then(res => {
-                if (res.success === 1 ) {
-                    return this.$router.replace('/list')
-                }
-                else{
+                if (res.success != 1 ) {
                     return this.$router.replace('/list')
                 }
             })

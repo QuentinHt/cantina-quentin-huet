@@ -45,7 +45,6 @@
         <div class="form-group">
             <label for="photo">Url de la photo</label>
             <input type="url" placeholder='url' id="photo" v-model="recipe.photo">
-            <span v-if="!$v.recipe.photo.url">La valeur doit être un url</span>
         </div>
 
         <div class="form-group">
@@ -78,7 +77,7 @@
 
 <script>
 import formIngredient from './FormIngredient.vue'
-import { required, numeric, minLength ,minValue, url } from "vuelidate/lib/validators";
+import { required, numeric, minLength ,minValue } from "vuelidate/lib/validators";
 export default {
     data: function() {
         return {
@@ -112,7 +111,6 @@ export default {
           tempsPreparation: {required, numeric, minValue: minValue(1)},
           etapes: {required, minLength: minLength(1)},
           ingredients: {required, minLength: minLength(1)},
-          photo: {url}
       }
   },
     components: {
