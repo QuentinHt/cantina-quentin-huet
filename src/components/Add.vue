@@ -18,6 +18,7 @@ export default {
         addRecipe: function(recipe){
             UserService.addRecipe(recipe).then(res => {
                     this.$router.replace('/list')
+                    console.log(res)
             }).catch(({message}) => alert(message))
         }
     }

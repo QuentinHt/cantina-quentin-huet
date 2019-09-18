@@ -38,7 +38,7 @@ export default {
             let tempsMinute = this.recipe.tempsPreparation
             if (tempsMinute >= 60){
                 var nbHour = parseInt(tempsMinute / 60);
-			    var nbminuteRestante = (tempsMinute % 60);
+                var nbminuteRestante = (tempsMinute % 60);
                 let tempsHeureMinute = nbHour + 'h' + nbminuteRestante
                 return tempsHeureMinute
             }
@@ -68,17 +68,14 @@ export default {
         })
     },
     methods: {
-                deleteRecipe: function(recipeToDelete){
+            deleteRecipe: function(recipeToDelete){
                   if(confirm('Vous allez supprimer cette recette, êtes vous sur ?')){
                     recipeToDelete = this.recipe
-                    UserService.deleteRecipe(recipeToDelete).then(res => {
-                    let index = recipeToDelete.id;
-                    if (index > -1){
-                        this.recipesList.splice(index, 1);
-                        this.$router.replace(`/list`)
-                    }
+                    UserService.deleteRecipe(recipeToDelete).then( function() {
+                    
                 })
-            .catch(errorMessage => alert(errorMessage))
+                this.$router.replace(`/list`)
+                .catch(errorMessage => alert(errorMessage))
                   }
         },
         onEdit: function(){

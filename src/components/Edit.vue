@@ -27,7 +27,7 @@ export default {
         .catch(({message}) => alert(message))
     },
     methods: {
-        update: function(user){
+        update: function(){
             UserService.updateRecipe(this.recipe).then(res => {
                 if (res.success === 1 ) {
                     return this.$router.replace('/list')

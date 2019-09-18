@@ -1,6 +1,6 @@
 <template>
     <form class="form-ingredient">
-                <input type="number" v-model="ingredientNumber" v-on:keyup="emitIngredient">
+                <input type="text" v-model="ingredientNumber" v-on:keyup="emitIngredient">
                 <select name="" id="" v-model="ingredientType" v-on:click="emitIngredient">
                     <option value=""></option>
                     <option value="ml">ml</option>
@@ -57,18 +57,15 @@ export default {
             this.$emit('emitIngredient', this.ingredient);
         },
         supprIngr (){
-            console.log(this.recipe.ingredients)
-            console.log(this.index)
-            console.log(this.recipe.ingredients[this.index])
             this.recipe.ingredients.splice(this.index,1)
         },
-            recupNumber: function(){
+        recupNumber: function(){
             if(this.recipe.description != ''){
-                            var ingr = this.recipe.ingredients[this.index][0]
+            var ingr = this.recipe.ingredients[this.index][0]
             ingr = ingr.split('');
             var number = '';
             for(var i=0;i<ingr.length;i++){
-                if(isNaN(ingr[i]) === false){
+                if(isNaN(ingr[i]) === false || ingr[i] === '½'){
                     number = number + ingr[i]
                 }
             }

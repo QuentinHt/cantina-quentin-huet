@@ -57,6 +57,7 @@ export default {
                     let index = this.recipesList.indexOf(recipeToDelete);
                     if (index > -1){
                         this.recipesList.splice(index, 1);
+                        alert(res)
                     }
 })
 .catch(errorMessage => alert(errorMessage))

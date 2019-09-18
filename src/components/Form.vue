@@ -43,6 +43,12 @@
         </div>
 
         <div class="form-group">
+            <label for="photo">Url de la photo</label>
+            <input type="url" placeholder='url' id="photo" v-model="recipe.photo">
+            <span v-if="!$v.recipe.photo.url">La valeur doit être un url</span>
+        </div>
+
+        <div class="form-group">
             <h1 class="labelIngr">Ingrédients : </h1>
             <div id="form-ingredients">
 
@@ -64,10 +70,6 @@
             </div>
             <input type="button" value="Ajouter une étape" @click.prevent="addEtape">
         </div>
-        <div class="form-group">
-            <label for="photo">Url de la photo</label>
-            <input type="url" id="photo" v-model="recipe.photo">
-        </div>
 
         <input type="submit" value="Envoyer" class="inputSubmit">
 
@@ -76,15 +78,10 @@
 
 <script>
 import formIngredient from './FormIngredient.vue'
-import { required, alpha, url, numeric, alphaNum, minLength ,minValue } from "vuelidate/lib/validators";
+import { required, numeric, minLength ,minValue, url } from "vuelidate/lib/validators";
 export default {
     data: function() {
         return {
-            nbIngredient : [0,0,0],
-            etapesBase: ["",""],
-            newEtapes: [""],
-            ingredientsBase:[["",""],["",""]],
-            newIngredient: [""],
             indexIngredient: null,
         }
     },
@@ -100,7 +97,7 @@ export default {
           personnes: "",
           tempsPreparation: "",
           etapes: [""],
-          ingredients: ["",""],
+          ingredients: [""],
           photo: "",
         };
       }
@@ -113,7 +110,9 @@ export default {
           niveau: {required},
           personnes: {required, numeric, minValue: minValue(1)},
           tempsPreparation: {required, numeric, minValue: minValue(1)},
-          etapes: {minLength: minLength(1)}
+          etapes: {required, minLength: minLength(1)},
+          ingredients: {required, minLength: minLength(1)},
+          photo: {url}
       }
   },
     components: {
@@ -132,7 +131,7 @@ export default {
         return this.$v.recipe.$touch();
         }
         if(this.recipe.photo === ""){
-            this.recipe.photo = "../assets/assietteBase.png"
+            this.recipe.photo = "https://cdn-media.rtl.fr/cache/Jy-PbLy706HiAsJZQK0OYQ/880v587-0/online/image/2016/1214/7786282730_l-etoile-noire-super-arme-destructrice-de-l-empire-galactique.PNG"
         }
         this.$emit('send', this.recipe)
         },
@@ -197,5 +196,8 @@ export default {
     }
     .recipeForm .inputSubmit {
         width: 100px;
+    }
+    .recipeForm span {
+        color: red
     }
 </style>

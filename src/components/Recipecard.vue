@@ -28,7 +28,7 @@ export default {
             let tempsMinute = this.recipe.tempsPreparation
             if (tempsMinute >= 60){
                 var nbHour = parseInt(tempsMinute / 60);
-			    var nbminuteRestante = (tempsMinute % 60);
+                var nbminuteRestante = (tempsMinute % 60);
                 let tempsHeureMinute = nbHour + 'h' + nbminuteRestante
                 return tempsHeureMinute
             }
