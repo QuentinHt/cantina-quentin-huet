@@ -53,11 +53,10 @@ export default {
   methods: {
       deleteRecipe: function(recipeToDelete){
           if(confirm("Vous allez supprimer cette recette, êtes vous sur ?")){
-            UserService.deleteRecipe(recipeToDelete).then(res => {
+            UserService.deleteRecipe(recipeToDelete).then(() => {
                     let index = this.recipesList.indexOf(recipeToDelete);
                     if (index > -1){
                         this.recipesList.splice(index, 1);
-                        alert(res)
                     }
 })
 .catch(errorMessage => alert(errorMessage))

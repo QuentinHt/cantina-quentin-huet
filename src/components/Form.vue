@@ -50,8 +50,8 @@
         <div class="form-group">
             <h1 class="labelIngr">Ingrédients : </h1>
             <div id="form-ingredients">
-
                 <formIngredient v-for="(ingredient, index) in recipe.ingredients" :key="index" v-on:emitIndex="findIndexIngredient(index)" :index="index" :recipe="recipe" v-on:emitIngredient="changeData"/>
+                <span v-if="!$v.recipe.ingredients.required">Le champs est requis</span>
             </div>
             <input type="button" value="Ajouter un ingrédient" @click.prevent="addIngredient">
         </div>
@@ -65,7 +65,7 @@
                         <button @click.prevent="supprEtape(index)">supprimer</button>
                     </li>
                 </ul>
-            
+                <span v-if="!$v.recipe.etapes.required">Le champs est requis</span>
             </div>
             <input type="button" value="Ajouter une étape" @click.prevent="addEtape">
         </div>
@@ -109,8 +109,8 @@ export default {
           niveau: {required},
           personnes: {required, numeric, minValue: minValue(1)},
           tempsPreparation: {required, numeric, minValue: minValue(1)},
-          etapes: {required, minLength: minLength(1)},
-          ingredients: {required, minLength: minLength(1)},
+          etapes: {required},
+          ingredients: {required},
       }
   },
     components: {
@@ -193,7 +193,8 @@ export default {
         font-weight: 800
     }
     .recipeForm .inputSubmit {
-        width: 100px;
+        width: 150px;
+        margin-top: 50px;
     }
     .recipeForm span {
         color: red

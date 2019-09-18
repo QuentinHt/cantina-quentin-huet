@@ -28,11 +28,10 @@ export default {
     },
     methods: {
         update: function(){
-            UserService.updateRecipe(this.recipe).then(res => {
-                if (res.success != 1 ) {
+            UserService.updateRecipe(this.recipe).then(() => {
                     return this.$router.replace('/list')
-                }
             })
+            .catch(errorMessage => alert(errorMessage))
         }
     }
 }

@@ -71,11 +71,10 @@ export default {
             deleteRecipe: function(recipeToDelete){
                   if(confirm('Vous allez supprimer cette recette, êtes vous sur ?')){
                     recipeToDelete = this.recipe
-                    UserService.deleteRecipe(recipeToDelete).then( function() {
-                    
+                    UserService.deleteRecipe(recipeToDelete).then(() => {
+                    this.$router.replace('/list')
                 })
-                this.$router.replace(`/list`)
-                .catch(errorMessage => alert(errorMessage))
+            .catch(errorMessage => alert(errorMessage))
                   }
         },
         onEdit: function(){

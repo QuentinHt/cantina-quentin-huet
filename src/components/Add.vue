@@ -16,10 +16,8 @@ export default {
     },
     methods: {
         addRecipe: function(recipe){
-            UserService.addRecipe(recipe).then(res => {
-                if (res.success != 1 ) {
+            UserService.addRecipe(recipe).then(() => {
                     this.$router.replace('/list')
-                }
             }).catch(({message}) => alert(message))
         }
     }
